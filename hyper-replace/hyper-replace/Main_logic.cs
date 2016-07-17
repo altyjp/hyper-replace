@@ -155,7 +155,7 @@ namespace hyper_replace
            //検索行よりも置換行が長い場合
            if(find.Length < replace.Length)
             {
-                for(int j= replace.Length - find.Length; j< replace.Length; j++)
+                for(int j= find.Length; j< replace.Length; j++)
                 {
                     outputs.Add(replace[j]);
                 }
