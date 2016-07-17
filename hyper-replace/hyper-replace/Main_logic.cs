@@ -95,9 +95,18 @@ namespace hyper_replace
                     }
                 }
 
+                //置換したファイルたちをファイルに書き込む
                 for (int i = 0; i < outputs.Count; i++)
                 {
                     Console.WriteLine(outputs[i]);
+                    if(i == 1)
+                    {
+                        System.IO.File.WriteAllText(filefullPathName, outputs[i], enc);
+                    } else
+                    {
+                        System.IO.File.AppendAllText(filefullPathName, outputs[i], enc);
+                    }
+
                 }
 
 
@@ -141,11 +150,11 @@ namespace hyper_replace
          */
         private List<String> replaceLines(List<string> outputs,String[] find,String[] replace)
         {
-           for (int j = outputs.Count - find.Length; j < outputs.Count; j++)
+            int k = 0; //置換行
+            for (int j = outputs.Count - find.Length; j < outputs.Count; j++)
             {
-                    int k = 0; //置換行
                     //置換行が存在しているか
-                    if (k + 1 <= replace.Length)
+                    if (k < replace.Length)
                     {
                         outputs[j] = outputs[j].Replace(find[k], replace[k]);
                     }
