@@ -35,8 +35,17 @@ namespace hyper_replace
         public int findAndreplaceTexts(String filefullPathName,String[] find,String[] replace)
         {
 
+            StreamWriter sw = null;
+
             try
             {
+                Console.WriteLine("inttiate Replace...");
+                Console.WriteLine("FILE:" + filefullPathName);
+                Console.WriteLine("FIND_TGT========");
+                Console.Write(find);
+                Console.WriteLine("REPLACE_TGT========");
+                Console.WriteLine(replace);
+
                 List<string> outputs = new List<string>();      //出力行
 
                 //テキストファイルを開く
@@ -96,25 +105,28 @@ namespace hyper_replace
                 }
 
                 //置換したファイルたちをファイルに書き込む
+                //ファイルを開く
+                Console.WriteLine("REPLACE [OK]");
+                Console.WriteLine("Write [START]");
+                sw = new StreamWriter(filefullPathName, false, enc);
                 for (int i = 0; i < outputs.Count; i++)
                 {
-                    Console.WriteLine(outputs[i]);
-                    if(i == 1)
-                    {
-                        System.IO.File.WriteAllText(filefullPathName, outputs[i], enc);
-                    } else
-                    {
-                        System.IO.File.AppendAllText(filefullPathName, outputs[i], enc);
-                    }
-
+                    Console.WriteLine(i+":"+outputs[i]);
+                    sw.WriteLine(outputs[i]);
                 }
 
-
+                Console.WriteLine("Write [END]");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 return -1;
+            } finally
+            {
+                if(sw != null)
+                {
+                    sw.Close();
+                }
             }
 
             return 0;
@@ -127,9 +139,9 @@ namespace hyper_replace
          */
         private Boolean isLinesMatch(List<string> find_lines, String[] find)
         {
-            Boolean complate_match = false; //完全マッチフラグ
+            Boolean complete_match = false; //完全マッチフラグ
 
-            complate_match = true;
+            complete_match = true;
             //全ての行に対して検索をかける
             for (int j = 0; j < find_lines.Count; j++)
             {
@@ -137,12 +149,13 @@ namespace hyper_replace
                 if (find_lines[j].IndexOf(find[j]) == -1)
                 {
                     //完全マッチ失敗
-                    complate_match = false;
-                    Console.Write("HUMAN IS DEAD,MISS MATCH");
+                    complete_match = false;
+                    //jelly man's report
+                    Console.Write("RESULT:ERROR,HUMAN IS DEAD.MISS MATCH");
                     break;
                 }
             }
-            return complate_match;
+            return complete_match;
         }
 
         /**

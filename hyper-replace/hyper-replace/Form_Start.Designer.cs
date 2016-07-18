@@ -36,6 +36,8 @@
             this.button_Start_replace = new System.Windows.Forms.Button();
             this.label_Text_to_find = new System.Windows.Forms.Label();
             this.label_Text_to_replace = new System.Windows.Forms.Label();
+            this.bgw_replace = new System.ComponentModel.BackgroundWorker();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // btn_Select_folder
@@ -112,11 +114,23 @@
             this.label_Text_to_replace.TabIndex = 11;
             this.label_Text_to_replace.Text = "//Text_to_replace";
             // 
+            // bgw_replace
+            // 
+            this.bgw_replace.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_replace_DoWork);
+            // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(32, 429);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(220, 10);
+            this.progressBar.TabIndex = 12;
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 441);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.label_Text_to_replace);
             this.Controls.Add(this.label_Text_to_find);
             this.Controls.Add(this.button_Start_replace);
@@ -126,8 +140,10 @@
             this.Controls.Add(this.textBox_folder);
             this.Controls.Add(this.btn_Select_folder);
             this.Cursor = System.Windows.Forms.Cursors.Default;
+            this.MaximumSize = new System.Drawing.Size(300, 480);
+            this.MinimumSize = new System.Drawing.Size(300, 480);
             this.Name = "main";
-            this.Text = "Form1";
+            this.Text = "hyper-replace";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,6 +159,8 @@
         private System.Windows.Forms.Button button_Start_replace;
         private System.Windows.Forms.Label label_Text_to_find;
         private System.Windows.Forms.Label label_Text_to_replace;
+        private System.ComponentModel.BackgroundWorker bgw_replace;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 
